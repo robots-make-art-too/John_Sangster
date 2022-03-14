@@ -1,0 +1,13 @@
+{
+  "name": "metajarra/emojibot",
+  "timeout": 10000,
+  "connector": false,
+  "events": {
+    "functions/events/discord/command/emoji.js": {
+      "name": "discord.command",
+      "subtype": {
+        "command": "emoji"
+      }
+    }
+  }
+}

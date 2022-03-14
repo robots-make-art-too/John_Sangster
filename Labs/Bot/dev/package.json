@@ -1,0 +1,8 @@
+{
+  "name": "new-project",
+  "author": "metajarra",
+  "publish": false,
+  "dependencies": {
+    "lib": "latest"
+  }
+}
