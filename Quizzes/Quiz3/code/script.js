@@ -8,8 +8,8 @@ function staticLoadPlaces() {
         {
             name: 'MyModel', // Sets variable "name" equal to 'MyModel'
             location: { // Sets location (with variables lat and lng) to parameters "your-latitude" and "your-longitude"
-                lat: <your-latitude>,
-                lng: <your-longitude>,
+                lat: <your-latitude></your-latitude>,
+                lng: <your-longitude></your-longitude>,
             }
         },
     ];
