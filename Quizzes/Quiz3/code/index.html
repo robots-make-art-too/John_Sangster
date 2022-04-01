@@ -1,39 +1,69 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta charset='utf-8'>
+		<!-- some content will be cleaner on a phone vs web but since web for testing right now we will comment it out -->
+		<!-- <meta charset='utf-8'>
 		<meta http-equiv='X-UA-Compatible' content='IE=edge'>
-		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-		<script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
-		<script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
-		<script src="https://raw.githubusercontent.com/n5ro/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
-		<script>THREEx.ArToolkitContext.baseURL = 'https://raw.githack.com/jeromeetienne/ar.js/master/three.js/'</script>
-
-		<script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"> -->
+		
+		<!-- changed Aframe version from 1.0.4 to v1.3.0 -->
+		<script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
+			
+		<!-- my origina quiz notes indicated that we only need one of the following, so you would have needed to comment one of these out -->
+		<!-- <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script> -->
 		<script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
 
-		<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+		<!-- we don't need THREEx for now, but we have talked about this since the Quiz opened, and as well we talked about how to insert `AFRAME` content registers -->
+		<!-- <script>THREEx.ArToolkitContext.baseURL = 'https://raw.githack.com/jeromeetienne/ar.js/master/three.js/'</script> -->
+
+		<script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
+		
+		<!-- use the site - raw githack to handle some cross-origin or loading content errors; generally if it is a library then use a cdn reference as those can handle much traffic -->
+		<!-- <script src="https://raw.githubusercontent.com/n5ro/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script> -->
+		<!-- but I will also set you up with the updated link I have been using since Quiz in lecture, so instead of just changing to the raw githack, we will comment out entirely -->
+		<!-- <script src="https://raw.githack.com/n5ro/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script> -->
+		<script src="https://cdn.statically.io/gh/donmccurdy/aframe-extras/fe293f78/dist/aframe-extras.loaders.js"></script>
+
+		<!-- find out if you need this or not, as or now no -->
+		<!-- <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script> -->
 
 		<!--<script type="text/javascript" src="./script.js"></script>-->
-		<!--<link rel="stylesheet" type="text/css" href="./style.css">-->
 		<!--<script type="text/javascript" src="extending_script.js"></script>-->
+
+		<!--<link rel="stylesheet" type="text/css" href="./style.css">-->
 
 	</head>
 
 	<body style="margin: 0; overflow: hidden;">
+		<!-- I'll add an embed tag to a-scene as we are generally using this with the webcam content; also updating some of the params for arjs -->
+		<!-- this part I took out, it goes with the section I commented out at the very top meta tags -> add this to arjs="sourceType" section-> sourceWidth:1280; sourceHeight:960; displayWidth: 1280; displayHeight: 960;" -->
 		<a-scene 
-		vr-mode-ui="enabled: false"
-		arjs="sourceType: webcam; videoTexture: true; debugUIEnabled: false;"
-		renderer="antialias: true; alpha: true">
+			vr-mode-ui="enabled: false"
+			embedded
+			arjs="sourceType: webcam; videoTexture: true; debugUIEnabled: false;"
+			renderer="antialias: true; alpha: true">
 		
 			<!--<a-entity gtlf-model="./assets/models/source/Bottle.gltf"
 			rotation="0 90 0" scale="1 1 1" position="0 0 0"
 			gps-entity-place="longitude: -79.36678; latitude: 43.75322">
 			</a-entity>-->
 
-			<a-box color="yellow" gps-projected-entity-place="latitude: 43.75322; longitude: -79.36678" position="0 0 -10"/>
+			<!-- we can use either gps-entity-place with gps-camera OR gps-projected-entity-place with gps-projected-camera; included the box, but also is the starting ref for a general entity-->
+			<!-- <a-entity gps-entity-place=""></a-entity> -->
 			
-			<a-camera gps-camera gps-camera="simulateLatitude: 43.75322; simulateLongitude: -79.36678" rotation-reader></a-camera>
+			<!-- for ref: any entity will read scale, then rotation, then position, if that matters --><a-box 
+				rotation="0 45 0" position="0 0 0"
+				color="#4CC3D9"
+				gps-entity-place="latitude: 43.75322; longitude: -79.36678;"></a-box>
+			
+			<!-- you had two gps-camera here, there definitely can only be one (see notes although this i probrably just a typo - it was, mine.) -->
+			<!-- <a-camera gps-camera gps-camera="simulateLatitude: 43.75322; simulateLongitude: -79.36678" rotation-reader></a-camera> -->
+			<!-- you can also change the height of the camera instead of model if it is easier for testing, or just in general perspective --> 
+			<a-camera 
+				gps-camera="simulateLatitude: 43.75322; simulateLongitude: -79.36678" 
+				rotation-reader
+				postion="0 3 0">
+			</a-camera>
 
 		</a-scene>
 	</body>
