@@ -9,7 +9,7 @@
 		<!-- changed Aframe version from 1.0.4 to v1.3.0 -->
 		<script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
 			
-		<!-- my origina quiz notes indicated that we only need one of the following, so you would have needed to comment one of these out -->
+		<!-- my original quiz notes indicated that we only need one of the following, so you would have needed to comment one of these out -->
 		<!-- <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script> -->
 		<script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
 
@@ -51,12 +51,13 @@
 			<!-- we can use either gps-entity-place with gps-camera OR gps-projected-entity-place with gps-projected-camera; included the box, but also is the starting ref for a general entity-->
 			<!-- <a-entity gps-entity-place=""></a-entity> -->
 			
-			<!-- for ref: any entity will read scale, then rotation, then position, if that matters --><a-box 
+			<!-- for ref: any entity will read scale, then rotation, then position, if that matters -->
+			<a-box 
 				rotation="0 45 0" position="0 0 0"
 				color="#4CC3D9"
 				gps-entity-place="latitude: 43.75322; longitude: -79.36678;"></a-box>
 			
-			<!-- you had two gps-camera here, there definitely can only be one (see notes although this i probrably just a typo - it was, mine.) -->
+			<!-- you had two gps-camera here, there definitely can only be one (see notes although this is probably just a typo - it was, mine.) -->
 			<!-- <a-camera gps-camera gps-camera="simulateLatitude: 43.75322; simulateLongitude: -79.36678" rotation-reader></a-camera> -->
 			<!-- you can also change the height of the camera instead of model if it is easier for testing, or just in general perspective --> 
 			<a-camera 
