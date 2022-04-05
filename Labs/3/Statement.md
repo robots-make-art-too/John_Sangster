@@ -1,1 +1,10 @@
 # THIS IS MY ARTIST STATEMENT - MY "WHY"
+Link: https://geographic-messages-test.herokuapp.com/
+
+This website is based on positioning messages in space, rather than in time. Messages are organized according to their latitude and longitude, and are placed on a map.
+
+I thought that this would be one of the methods that would best reflect the idea of "being there together". In my opinion, this method reframes the idea of being "together" with others in a new way - instead of being near people in time, as we see on many social media platforms which organize messages based on when they were made, this program gives a sense of being near people in space. For example, it could allow users to see where certain languages are located - both their expected locations in certain nations, but also some unexpected communities of speakers outside of that nation. It could also reflect if people living in certain areas have similar concerns - phenomena such as rising or lowering temperatures could be spatially tracked, and people posting about some concerns and difficulties they have in their lives could see where other people, both around them and far away, have expressed similar sentiments. 
+
+However, this model could also present certain difficulties. For example, modern social media platforms typically organize messages irrespective of where they were posted, which allow people to see information and opinions from around the world. By visualizing the origins of messages on a map, people may only be interested in viewing areas near themselves, and as such receive a biased or incomplete view. In addition, as many media platforms are dominated by English-speaking nations, this one might face similar difficulties - certain regions, such as the United States or UK, may be saturated with messages, while a post in another region may go almost completely unnoticed by anyone not looking for it. 
+
+Despite these difficulties, I believe that this form of communication is an interesting concept that can provide a unique perspective on the idea of "being there together", and on what it means for a space to be an online community.
