@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+
+<style>
+    body {
+        background-color: rgb(13, 13, 13);
+    }
+
+    p {
+        color:rgb(242, 242, 242);
+    }
+
+    .invisibleinput {
+        width: 0px;
+        height: 0px;
+        background: transparent;
+        border: none;
+    }
+
+    .center-screen {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        min-height: 100vh;
+    }
+
+    .buttondiv {
+        border: solid rgb(242, 242, 242);
+    }
+
+    form {
+        width: 480px;
+        justify-content: left;
+        justify-items: left;
+    }
+
+    input {
+        color:rgb(242, 242, 242);
+        background-color: rgb(13, 13, 13);
+    }
+
+    label {
+        color: rgb(242, 242, 242);
+    }
+
+    button {
+        font-size: larger;
+        color: rgb(242, 242, 242);;
+        background: transparent;
+        border: none;
+        margin: 1%;
+    }
+
+    label {
+        margin: 1%;
+    }
+</style>
+
+<div class="center-screen">
+    <form action="/writetochars" method="POST" id="mainform">
+        <div id="biodiv">
+            <p>Biographical Information:</p><input class="invisibleinput" id="numofnewbios" name="numofnewbios" value="0">
+
+            <label for="text">Name:</label>
+            <input type="text" id="name" name="name"><br><br>
+
+            <label for="image">Image SRC:</label>
+            <input type="text" id="image" name="image"><br><br>
+
+            <label for="bio">Biography:</label>
+            <input type="text" id="bio" name="bio"><br><br>
+        </div>
+
+        <input type="button" onclick="newBio()" value="+">
+        <br><br>
+
+        <script>
+            console.log("{{ content }}");
+            
+            let possibleNames = ["None(L)"];
+
+            const form = document.getElementById("biodiv");
+            let newAppends = 0;
+
+            function newBio() {
+                const label = document.createElement("label");
+                label.for = `nb${newAppends}`;
+                label.innerHTML = `Custom Biographical ${newAppends + 1}:`;
+
+                const input = document.createElement("input");
+                input.type = "text";
+                input.name = `nb${newAppends}`;
+                input.id = `nb${newAppends}`;
+
+                form.appendChild(label);
+                form.appendChild(input);
+                form.appendChild(document.createElement("br"));
+                form.appendChild(document.createElement("br"));
+
+                newAppends++;
+                document.getElementById("numofnewbios").value = `${newAppends}`;
+            }
+        </script>
+
+        {% for name in names %}
+            <script>
+                possibleNames.push("{{name}}");
+            </script>
+        {% endfor %}
+
+        <div id="relationshipdiv">
+            <p>Relationship Information:</p><input class="invisibleinput" id="numofnewrels" name="numofnewrels" value="0">     
+        </div>
+
+        <input type="button" onclick="newRel()" value="+">
+        <br><br>
+
+        <script>
+            const formr = document.getElementById("relationshipdiv");
+            let newRelations = 0;
+
+            function newRel() {
+                const label = document.createElement("label");
+                label.for = `r${newRelations}`;
+                label.innerHTML = `Custom Relationship ${newRelations + 1}:`;
+
+                const input = document.createElement("input");
+                input.type = "text";
+                input.name = `r${newRelations}`;
+                input.id = `r${newRelations}`;
+
+                const select = document.createElement("select");
+                select.name = `s${newRelations}`;
+                select.id = `s${newRelations}`;
+
+                const chooseOne = document.createElement("option");
+                chooseOne.value = "default";
+                chooseOne.innerHTML = "Choose one:";
+
+                select.appendChild(chooseOne);
+                
+                for(let i = 0; i < possibleNames.length; i++){
+                    if(possibleNames[i] != "None(L)" && possibleNames[i] != "None"){
+                        const newOption = document.createElement("option");
+                        newOption.value = i;
+                        newOption.innerHTML = possibleNames[i];
+
+                        select.appendChild(newOption);
+                    }
+                }
+
+                formr.appendChild(label);
+                formr.appendChild(input);
+                formr.appendChild(select);
+                formr.appendChild(document.createElement("br"));
+                formr.appendChild(document.createElement("br"));
+
+                newRelations++;
+                document.getElementById("numofnewrels").value = `${newRelations}`;
+            }
+        </script>
+
+        <input class="file_submit" type="submit" id="submit" name="submit">
+    </form>
+
+    <div class="buttondiv">
+        <a href="landing">
+            <button type="button">BACK</button>
+        </a>
+    </div>
+
+    <!--<a href="seeposts">
+        
+    </a>-->
+</div>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+
+<style>
+  body {
+    background-color: rgb(13, 13, 13);
+  }
+
+  .parent {
+    position: relative;
+    top: 0;
+    left: 0;
+  }
+
+  .maindiv {
+    position: relative;
+    top: 0;
+    left: 0;
+  }
+
+  button {
+    color: rgb(242, 242, 242);
+    background: transparent;
+    border: none;
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  img {
+    position: absolute;
+    
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+</style>
+
+<body> <!--comment-->
+  <div class="parent">
+    <form action="/display" method="POST">
+        <div maindiv id="maindiv" class="maindiv">
+            {% if characters %}
+                {% for item in characters %}
+                <!--Input whatever HTML elements you want to be created below:-->    
+                <!--Yellow square: https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Square_Yellow.svg/1200px-Square_Yellow.svg.png-->
+                <button value="{{ item.UniqueID }}" id="{{ item.UniqueID }}" type="submit" name="character_input_button">{{ item.name }}</button>
+                  {% for rel in item.relsID %}
+                    <script>
+                      if("{{ rel }}" != "temp"){
+                        console.log("ID: {{ item.UniqueID }} | {{ rel }}");
+                        let _id = "{{ item.UniqueID }}|{{ rel }}";
+                        
+                        const _newimage = document.createElement("img");
+                        _newimage.id = _id;  
+                        _newimage.name = "connector";           
+                        _newimage.src = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Square_Yellow.svg/1200px-Square_Yellow.svg.png";
+
+                        document.getElementById("maindiv").appendChild(_newimage);
+                      }
+                    </script>
+                  {% endfor %}
+                {% endfor %}
+                <script>
+                  let count = parseInt("{{ charcount }}");
+                  let buttons = [];
+                  let buttonids = [];
+
+                  let buttondegrees = [];
+
+                  let connectors = document.getElementsByName("connector");
+
+                  for(let i = 0; i < count; i++){
+                    buttons.push(document.getElementById(i));
+                    buttonids.push(i);
+                  }
+
+                  let buttonsdone = false;
+                  let num = 0;
+                  let index = 0;
+
+                  while(!buttonsdone){
+                    for(let i = 0; i < buttons.length; i++){
+                      if(i < buttons.length){
+                        console.log("circle position " + i + ": " + parseInt((parseInt((360 / buttons.length - 1) * i)) + parseInt(i)));
+                        buttondegrees.push(parseInt((parseInt((360 / buttons.length - 1) * i)) + parseInt(i)));
+
+                        let circledegs = parseInt((parseInt((360 / buttons.length - 1) * i)) + parseInt(i));
+                        console.log("button coords | 960 x 540: " + `X: ${Math.cos((circledegs * Math.PI) / 180) * 225} ` + `Y: ${Math.sin((circledegs * Math.PI) / 180) * 225}`);
+                      }
+
+                      index++;
+                    }
+
+                    num++;
+
+                    if(index >= buttons.length){
+                      buttonsdone = true;
+                    }
+                  }
+
+                  for(let i = 0; i < buttons.length; i++){
+                    console.log(buttons[i]);
+                    buttons[i].style = `top: ${(50 - Math.sin((buttondegrees[i] * Math.PI) / 180) * 25).toString()}vh; left: ${(50 - Math.cos((buttondegrees[i] * Math.PI) / 180) * 25 * 0.5625).toString()}vw;`;
+                  }
+
+                  for(let i = 0; i < connectors.length; i++){
+                    console.log(`Connector: ${i}: ${connectors[i].id}`);
+                    conid = connectors[i].id.toString();
+
+                    let breakindex = 0;
+                    for(let j = 0; j < conid.length; j++){
+                      if(conid.charAt(j) == "|"){
+                        breakindex = j;
+                      }
+                    }
+
+                    let start = conid.substring(0, breakindex);
+                    let end = conid.substring(breakindex + 1, conid.length);
+
+                    let startposX = Math.cos((buttondegrees[parseInt(start) - 1] * Math.PI) / 180) * 225;
+                    let startposY = Math.sin((buttondegrees[parseInt(start) - 1] * Math.PI) / 180) * 225;
+                    
+                    let endposX = Math.cos((buttondegrees[parseInt(end) - 1] * Math.PI) / 180) * 225;
+                    let endposY = Math.sin((buttondegrees[parseInt(end) - 1] * Math.PI) / 180) * 225;
+
+                    let hypX = endposX - startposX;
+                    let hypY = endposY - startposY;
+
+                    let _angle = Math.atan(hypY / hypX);
+                    let _length = Math.sqrt((hypX * hypX) + (hypY * hypY));
+
+                    console.log(`Start: ${start}: ${buttondegrees[parseInt(start) - 1]}. End: ${end}: ${buttondegrees[parseInt(end) - 1]}`);
+
+                    connectors[i].style = `left: 50vw; top: 50vh; width: ${_length.toString()}px; height: 4px; transform: rotate(${_angle.toString()}deg);`;
+                  }
+                </script>
+            {% endif %}
+        </div>
+    </form>
+  </div>
+</body>

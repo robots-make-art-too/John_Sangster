@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+
+<style>
+    body{
+        background-color: rgb(13, 13, 13);
+    }
+
+    .center-screen {
+        display: flex;
+        position: absolute;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        top: 50%;
+        left: 50%;
+        height: 75%;
+        width: 75%;
+        transform: translate(-50%, -50%);
+    }
+
+    p {
+        font-size: larger;
+        color: rgb(242, 242, 242);
+        margin: 1%;
+    }
+
+    button {
+        font-size: larger;
+        color: rgb(242, 242, 242);
+        margin: 1%;
+    }
+
+    .invisibleinput {
+        width: 0px;
+        height: 0px;
+        background: transparent;
+        border: none;
+    }
+</style>
+
+<body>
+    <div class="center-screen" id="maindiv">
+        <form method="/POST" id="mainform">
+            <p>Name: {{ character.name }}</p>
+            <img src="{{ character.image }}" width="256" height="256">
+            <p>Bio: {{ character.bio }}</p>
+
+            <script>
+                const form = document.getElementById("mainform");
+            </script>
+
+            {% for item in bios %}
+                <script>
+                    item = "{{ item }}";
+                    
+                    console.log(item);
+                    if(item != "temp"){
+                        const newbio = document.createElement("p");
+                        newbio.innerHTML = "Custom Biographical: " + item;
+                        form.appendChild(newbio);
+                    }
+                </script>
+            {% endfor %}
+            
+            {% for item2 in rels %}
+                <script>
+                    item2 = "{{ item2 }}";
+
+                    console.log(item2);
+                    if(item2 != "temp"){
+                        const newrel = document.createElement("p");
+                        newrel.innerHTML = "Custom Relationship: " + item2;
+                        form.appendChild(newrel);
+                    }
+                </script>
+            {% endfor %}
+        </form>
+    </div>
+</body>
