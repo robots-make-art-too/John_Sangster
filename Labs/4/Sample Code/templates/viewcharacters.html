@@ -63,6 +63,7 @@
                   {% endfor %}
                 {% endfor %}
                 <script>
+                  // comment
                   let count = parseInt("{{ charcount }}");
                   let buttons = [];
                   let buttonids = [];
@@ -87,7 +88,7 @@
                         buttondegrees.push(parseInt((parseInt((360 / buttons.length - 1) * i)) + parseInt(i)));
 
                         let circledegs = parseInt((parseInt((360 / buttons.length - 1) * i)) + parseInt(i));
-                        console.log("button coords | 960 x 540: " + `X: ${Math.cos((circledegs * Math.PI) / 180) * 225} ` + `Y: ${Math.sin((circledegs * Math.PI) / 180) * 225}`);
+                        console.log("button coords | vw x vh: " + `X: ${50 - Math.cos((circledegs * Math.PI) / 180) * 25} ` + `Y: ${50 - Math.sin((circledegs * Math.PI) / 180) * 25}`);
                       }
 
                       index++;
@@ -119,21 +120,23 @@
                     let start = conid.substring(0, breakindex);
                     let end = conid.substring(breakindex + 1, conid.length);
 
-                    let startposX = Math.cos((buttondegrees[parseInt(start) - 1] * Math.PI) / 180) * 225;
-                    let startposY = Math.sin((buttondegrees[parseInt(start) - 1] * Math.PI) / 180) * 225;
+                    let startposX = 50 - Math.cos((buttondegrees[parseInt(start)] * Math.PI) / 180) * 25;
+                    let startposY = 50 - Math.sin((buttondegrees[parseInt(start)] * Math.PI) / 180) * 25;
                     
-                    let endposX = Math.cos((buttondegrees[parseInt(end) - 1] * Math.PI) / 180) * 225;
-                    let endposY = Math.sin((buttondegrees[parseInt(end) - 1] * Math.PI) / 180) * 225;
+                    let endposX = 50 - Math.cos((buttondegrees[parseInt(end)] * Math.PI) / 180) * 25;
+                    let endposY = 50 - Math.sin((buttondegrees[parseInt(end)] * Math.PI) / 180) * 25;
 
                     let hypX = endposX - startposX;
                     let hypY = endposY - startposY;
 
-                    let _angle = Math.atan(hypY / hypX);
+                    let _angle = Math.atan2(hypY, hypX) * 180 / Math.PI;
                     let _length = Math.sqrt((hypX * hypX) + (hypY * hypY));
 
-                    console.log(`Start: ${start}: ${buttondegrees[parseInt(start) - 1]}. End: ${end}: ${buttondegrees[parseInt(end) - 1]}`);
+                    console.log(`Start: ${start}: ${buttondegrees[parseInt(start)]}. End: ${end}: ${buttondegrees[parseInt(end)]}`);
+                    console.log(`SPX: ${startposX} SPY: ${startposY} EPX: ${endposX} EPY: ${endposY}`);
+                    console.log(`Angle: ${_angle} X: ${hypX} Y: ${hypY} div: ${hypX / hypY}`);
 
-                    connectors[i].style = `left: 50vw; top: 50vh; width: ${_length.toString()}px; height: 4px; transform: rotate(${_angle.toString()}deg);`;
+                    connectors[i].style = `left: ${(startposX + (hypX / 2)) * 0.775 /** (1 + ((100 - (startposX + (hypX / 2) * 0.7)) / 250))*/}vw; top: ${startposY + (hypY / 2)}vh; width: ${_length * 0.45}vw; height: 4px; transform: rotate(${_angle}deg);`;
                   }
                 </script>
             {% endif %}
